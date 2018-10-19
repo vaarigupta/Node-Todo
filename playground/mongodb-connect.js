@@ -4,7 +4,7 @@ const {MongoClient , ObjectID} = require('mongodb');
 
 // the following code is valid for mongodb version greater than 3.0
 
-MongoClient.connect('mongodb://localhost:27017',{ useNewUrlParser: true }, function (err, client) {
+MongoClient.connect('mongodb://localhost:27017',{ useNewUrlParser: true }, (err, client)=>{
   if (err) 
   {
   	return console.log('Unable to connect');
