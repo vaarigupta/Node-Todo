@@ -25,11 +25,11 @@ MongoClient.connect(URL , {useNewUrlParser : true} , (err , Client)=>{
 	 	console.log(result);
 	 })
 
-    db.collection('Todo').deleteMany({text : "Nothing to do"}).then((result)=>{
-    	console.log(result);
-    	    })
+    // db.collection('Todo').deleteMany({text : "Nothing to do"}).then((result)=>{
+    // 	console.log(result);
+    // 	    })
 
-    db.collection('Todo').deleteOne({ name : "Raavi"}).then((result)=>{
-    	console.log(result);
-    })
+    // db.collection('Todo').deleteOne({ name : "Raavi"}).then((result)=>{
+    // 	console.log(result);
+    // })
 })
