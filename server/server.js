@@ -3,6 +3,7 @@ var {Todo} = require('./models/Todos');
 var {User} = require('./models/Users');
 var express = require('express');
 var bodyParser = require('body-parser');
+var {ObjectID} = require('mongodb');
 
 var app = express();
 
@@ -66,6 +67,31 @@ app.get('/todos',(req , res)=>{
 		res.status(400).send(e)
 	})
 
+
+})
+
+app.get('/todos/:id',(req,res)=>{
+	var id = req.params.id;
+
+	if(ObjectID.isValid(id))
+	{
+		Todo.findById(id).then((todo)=>{
+			if(!todo)
+			{
+				return res.send(404 ,"Todo not found with the given Id");
+			}
+			res.send(200 , `My todo :  ${todo}`);
+
+		}, (e)=>{
+			res.send(400 ,"Invalid ID -Sorry");
+		})
+	}
+
+	else
+	{
+		res.send(404 ,"Invalid Id");
+	}
+	
 
 })
 

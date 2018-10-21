@@ -54,40 +54,40 @@ Todo.findOne({_id : Tid}).then((todos)=>{
 
 ///------------------------------------------------------------
 
- User.find({_id : Uid }).then((User)=>{
- 	if(!User)
- 	{
- 		return console.log("User not found at this ID")
- 	}
+//  User.find({_id : Uid }).then((User)=>{
+//  	if(!User)
+//  	{
+//  		return console.log("User not found at this ID")
+//  	}
  	 
-	console.log(" User Using find()" , User);
-}).catch(()=>{
-	console.log("Invalid ID , Please Enter the correct ID")
-})
+// 	console.log(" User Using find()" , User);
+// }).catch(()=>{
+// 	console.log("Invalid ID , Please Enter the correct ID")
+// })
 
 
 
-User.findOne({_id : Uid}).then((User)=>{
-	if(!User)
- 	{
- 		return console.log("User not found at this ID")
- 	}
+// User.findOne({_id : Uid}).then((User)=>{
+// 	if(!User)
+//  	{
+//  		return console.log("User not found at this ID")
+//  	}
  	
-	console.log("User Using findOne()" , User);
-}).catch(()=>{
-	console.log("Invalid ID , Please Enter the correct ID")
-})
+// 	console.log("User Using findOne()" , User);
+// }).catch(()=>{
+// 	console.log("Invalid ID , Please Enter the correct ID")
+// })
 
 
 
 
- User.findById({_id : Uid}).then((User)=>{
- 	if(!User)
- 	{
- 		return console.log("User not found at this ID")
- 	}
+//  User.findById({_id : Uid}).then((User)=>{
+//  	if(!User)
+//  	{
+//  		return console.log("User not found at this ID")
+//  	}
 
-	console.log("User Using findById()" , User);
-}).catch(()=>{
-	console.log("Invalid ID , Please Enter the correct ID")
-})
+// 	console.log("User Using findById()" , User);
+// }).catch(()=>{
+// 	console.log("Invalid ID , Please Enter the correct ID")
+// })
