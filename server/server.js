@@ -12,7 +12,7 @@ var port = process.env.PORT || 3000;
 app.use(bodyParser.json())
 
 //------------------------------------------------------------------------------
-//POST - route
+//POST - Todos 
 app.post('/todos',(req , res)=>{
      
      var body = req.body;
@@ -23,7 +23,7 @@ app.post('/todos',(req , res)=>{
 	})
 
 	newTodo.save().then((doc)=>{
-		res.send(doc);
+		res.status(200).send(doc);
 
 	},(e)=>{
 
@@ -33,15 +33,17 @@ app.post('/todos',(req , res)=>{
 	})
 
 })
-
+//------------------------------------------------------------------------------
+//POST - users
 app.post('/users',(req,res)=>{
-
+	var body = req.body;
 var newUser = new User({
-	email : req.body.email
+	email : body.email,
+	password : body.password
 })
 
 newUser.save().then((doc)=>{
-	res.send(doc);
+	res.status(200).send(doc);
 
 },(e)=>{
 	res.status(400).send(e);
@@ -49,19 +51,21 @@ newUser.save().then((doc)=>{
 
 })
 //----------------------------------------------------------------------------------------
-//GET - Route
+//GET - root
 
-// app.get('/',(req,res)=>{
-// 	if(req)
-// 	{
-// 		res.send('<h1> Welcome to my Todo App -Thanks for visiting </h1>')
-// 	}
+app.get('/',(req,res)=>{
+	if(req)
+	{
+		res.status(200).send('<h1> Welcome to my Todo App -Thanks for visiting </h1>')
+	}
 
-// })
+})
+//------------------------------------------------------------------------------
+//GET - todos
 app.get('/todos',(req , res)=>{
 	
 	Todo.find().then((todos)=>{
-		res.send({todos})
+		res.status(200).send({todos})
 
 	},(e)=>{
 		res.status(400).send(e)
@@ -70,6 +74,8 @@ app.get('/todos',(req , res)=>{
 
 })
 
+//------------------------------------------------------------------------------
+//GET - todos with specific object ID
 app.get('/todos/:id',(req,res)=>{
 	var id = req.params.id;
 
@@ -78,21 +84,61 @@ app.get('/todos/:id',(req,res)=>{
 		Todo.findById(id).then((todo)=>{
 			if(!todo)
 			{
-				return res.send(404 ,"Todo not found with the given Id");
+				return res.status(404).send("Todo not found with the given Id");
 			}
-			res.send(200 , `My todo :  ${todo}`);
+			res.status(200).send( `My todo :  ${todo}`);
 
 		}, (e)=>{
-			res.send(400 ,"Invalid ID -Sorry");
+			res.status(400).send("Invalid ID -Sorry");
 		})
 	}
 
 	else
 	{
-		res.send(404 ,"Invalid Id");
+		res.status(404).send("Invalid Id");
 	}
 	
 
+})
+
+//------------------------------------------------------------------------------
+//GET - users
+app.get('/users',(req , res)=>{
+	
+	User.find().then((users)=>{
+		res.status(200).send({users})
+
+	},(e)=>{
+		res.status(400).send(e)
+	})
+
+
+})
+
+//------------------------------------------------------------------------------
+//GET - users with specific object ID
+app.get('/users/:id',(req , res)=>{
+	
+var id = req.params.id;
+if(ObjectID.isValid(id))
+{
+	User.findById(id).then((user)=>{
+		if(!user)
+			{
+				return res.status(404).send("Sorry!!! No such user");
+			}
+			res.status(200).send(`User:  ${user}`);
+
+
+	},(e)=>{
+		res.status(400).send("Sorry no user found");
+
+	})
+}
+else
+{
+	res.status(404).send("Invalid Id");
+}
 })
 
 
