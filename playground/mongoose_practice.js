@@ -7,7 +7,8 @@ mongoose.Promise = global.Promise;
  let Url = "mongodb://localhost:27017/TodoApp";
 mongoose.connect(Url, {useNewUrlParser: true});
 
-let Todo = mongoose.model('Todo',{
+/// Creating a collection named todo
+let Todo = mongoose.model('todo',{
 text :{
   required: true,
   type: String,
@@ -25,7 +26,7 @@ completedAt:
   default : null
 }
 });
-
+/// Creating a collection named user
 let User = mongoose.model('User',{
   name :
   {
@@ -53,8 +54,18 @@ let User = mongoose.model('User',{
 const app = express();
 app.use(bodyParser.json());
 
+
+/// Posting a TODO onto the server and getting response from the server- Creation
 app.post('/todos',(req,res)=>{
-  res.send(req.body)
+  var todo = new Todo({
+    text : req.body.text
+  })
+
+  todo.save().then((doc)=>{
+    res.send(doc);
+  },(e)=>{
+    res.status(400).send("Sorry error occured");
+  })
 })
 
 
