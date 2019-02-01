@@ -68,7 +68,35 @@ app.post('/todos',(req,res)=>{
   })
 })
 
+var id = "5c5449204d69743c4183e071";
+var id1 = "5c544a275247a43cf79f55b0";
+///fetching Data from the Server
+app.get('/todos',(req,res)=>{
+  // Todo.findById(id1).then((todo)=>{
+  //   res.send({
+  //     todo
+  //   })
+  // }).catch((e)=>{
+  //   res.status(400).send("Sorry Unable to Fetch");
+  // })
+
+
+/// Only one method can be used inside a one route handler not like more than  one bcz when a client sends a request then first
+/// method i.e findById() will be called for a request which will go to server side and finds the id thats of correct match
+/// and returns to the client then findOne() will never get called bcz for that a request was never made
+
+
+  Todo.findOne({
+    _id: id
+  }).then((todo)=>{
+    res.send({
+      todo
+    })
+  }).catch((e)=>{
+    res.status(400).send("Sorry Unable to Fetch");
+  })
+});
 
 app.listen(3000,()=>{
   console.log("Server running at port 3000");
-})
+});
