@@ -125,6 +125,20 @@ app.get('/todos/:id',(req,res)=>{
 
 })
 
+app.delete('/todos/:id',(req,res)=>{
+  var id = req.params.id;
+  if(!ObjectID.isValid(id))
+  {
+    return res.status(400).send("Not a Valid ID");
+  }
+
+  Todo.findByIdAndRemove(id).then((todo)=>{
+    var ans = todo ? res.send(`1 Todo Deleted \n ${todo}`) : res.status(404).send("No Todo Deleted");
+    return ans;
+  },(e)=>{
+    res.status(404).send("Not Deleted");
+  })
+})
 
 app.listen(PORT,()=>{
   console.log(`Server running at port ${PORT}`);

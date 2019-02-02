@@ -104,6 +104,22 @@ app.get('/todos/:id',(req,res)=>{
 
 })
 
+///Deleting a TODO:
+
+app.delete('/todos/:id',(req,res)=>{
+  var id = req.params.id;
+  if(!ObjectID.isValid(id))
+  {
+    return res.status(400).send("Not a Valid Id");
+  }
+
+  Todo.findByIdAndRemove(id).then((todo)=>{
+    var ans = todo ? res.status(200).send(`Todo Deleted : \n ${todo}`) : res.status(404).send("Not Found any Todo");
+    return ans;
+  },(e)=>{
+    return res.status(400).send("Ooops, Some error");
+  })
+})
 
 
 //------------------------------------------------------------------------------
