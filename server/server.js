@@ -1,10 +1,12 @@
+var express = require('express');
+var bodyParser = require('body-parser');
+var _ = require('lodash');
+
 var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./models/Todos');
 var {User} = require('./models/Users');
-var express = require('express');
-var bodyParser = require('body-parser');
-var {ObjectID} = require('mongodb');
 
+var {ObjectID} = require('mongodb');
 var app = express();
 
 var PORT = process.env.PORT || 3000;
@@ -120,6 +122,50 @@ app.delete('/todos/:id',(req,res)=>{
     return res.status(400).send("Ooops, Some error");
   })
 })
+
+////-- Making Updates by the user
+app.patch('/todos/:id',(req,res)=>
+{
+  var id = req.params.id;
+  // The body from the request that we want to updates
+  var body = _.pick(req.body, ['text' , 'completed']);
+  if(!ObjectID.isValid(id))
+  {
+    return res.status(404).send("Invalid ID");
+  }
+
+
+  if(_.isBoolean(body.completed) && body.completed)
+  {
+    // var date = new Date().getDate();
+    // var month = new Date().getMonth();
+    // var year = new Date().getFullYear();
+    // body.completedAt = `${date}/${month}/${year}` ;
+    body.completedAt = new Date().getTime();
+  }
+  else {
+
+    body.completedAt = null;
+    body.completed = false;
+  }
+  Todo.findByIdAndUpdate(id , { $set:body} , {new : true}).then((todo)=>{
+    var ans = todo ? res.send(todo) : res.status(400).send("Not Updated");
+    return ans;
+  }).catch((e)=>{
+    return res.status(400).send("Oops Some Error");
+  })
+
+  
+})
+
+
+
+
+
+
+
+
+
 
 
 //------------------------------------------------------------------------------
