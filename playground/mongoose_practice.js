@@ -4,9 +4,11 @@ const express = require('express');
 const {ObjectID} = require('mongodb');
 
 mongoose.Promise = global.Promise;
- let Url = "mongodb://localhost:27017/TodoApp";
+let Url = "mongodb://admin:admin123@ds062448.mlab.com:62448/practice_app";
+ //let Url =  "mongodb://localhost:27017/TodoApp";
 mongoose.connect(Url, {useNewUrlParser: true});
 
+var PORT = process.env.PORT || 3000;
 /// Creating a collection named todo
 let Todo = mongoose.model('todo',{
 text :{
@@ -68,15 +70,15 @@ app.post('/todos',(req,res)=>{
   })
 })
 
-var id = "5c5449204d69743c4183e071";
-var id1 = "5c544a275247a43cf79f55b0";
+//var id = "5c5449204d69743c4183e071";
+//var id1 = "5c544a275247a43cf79f55b0";
 ///fetching Data from the Server
 app.get('/todos',(req,res)=>{
 
   Todo.find().then((todos)=>{
-    res.send(todos);
+    res.send({todos});
   },(e)=>{
-    res.status(400).send("unbble to fetch Data");
+    res.status(400).send("Not Found any Data");
   })
   // Todo.findById(id1).then((todo)=>{
   //   res.send({
@@ -114,10 +116,8 @@ app.get('/todos/:id',(req,res)=>{
 
   Todo.findById(id).then((todo)=>{
 
-    var ans = todo? res.send(todo) :res.status(404).send({});
-     return ans;
-    // var ans = todo? todo: {};
-    // res.send(ans);
+    var ans = todo? res.status(200).send({todo}) :res.status(404).send({});
+    return ans;
 
   },(e)=>{
     res.status(404).send("Not Found any Todo");
@@ -126,6 +126,6 @@ app.get('/todos/:id',(req,res)=>{
 })
 
 
-app.listen(3000,()=>{
-  console.log("Server running at port 3000");
+app.listen(PORT,()=>{
+  console.log(`Server running at port ${PORT}`);
 });

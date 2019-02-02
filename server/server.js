@@ -7,14 +7,14 @@ var {ObjectID} = require('mongodb');
 
 var app = express();
 
-var port = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json())
 
 //------------------------------------------------------------------------------
-//POST - Todos 
+//POST - Todos
 app.post('/todos',(req , res)=>{
-     
+
      var body = req.body;
 	var newTodo = new Todo({
 		text : body.text,
@@ -23,16 +23,16 @@ app.post('/todos',(req , res)=>{
 	})
 
 	newTodo.save().then((doc)=>{
-		res.status(200).send(doc);
+		res.status(200).send({doc});
 
 	},(e)=>{
-
-		
-		res.status(400).send(e);
-
+		res.status(400).send("Sorry , Todo Not Added");
 	})
 
 })
+
+
+
 //------------------------------------------------------------------------------
 //POST - users
 app.post('/users',(req,res)=>{
@@ -50,6 +50,9 @@ newUser.save().then((doc)=>{
 })
 
 })
+
+
+
 //----------------------------------------------------------------------------------------
 //GET - root
 
@@ -60,51 +63,53 @@ app.get('/',(req,res)=>{
 	}
 
 })
+
+
+
 //------------------------------------------------------------------------------
 //GET - todos
 app.get('/todos',(req , res)=>{
-	
+
 	Todo.find().then((todos)=>{
 		res.status(200).send({todos})
 
 	},(e)=>{
-		res.status(400).send(e)
+		res.status(400).send("Todo Not Found");
 	})
 
 
 })
 
+
+
 //------------------------------------------------------------------------------
 //GET - todos with specific object ID
 app.get('/todos/:id',(req,res)=>{
 	var id = req.params.id;
-
-	if(ObjectID.isValid(id))
+///  validation of Id by ObjectID.isValid()
+	if(!ObjectID.isValid(id))
 	{
-		Todo.findById(id).then((todo)=>{
-			if(!todo)
-			{
-				return res.status(404).send("Todo not found with the given Id");
-			}
-			res.status(200).send( `My todo :  ${todo}`);
+    return res.status(404).send("Invalid Id");
 
-		}, (e)=>{
-			res.status(400).send("Invalid ID -Sorry");
-		})
 	}
 
-	else
-	{
-		res.status(404).send("Invalid Id");
-	}
-	
+  ///if Its is Valid then Using findById() method to find in database
+  Todo.findById(id).then((todo)=>{
+    var ans = todo ? res.status(200).send({todo}) : res.status(404).send({});
+    return ans;
+
+  }, (e)=>{
+    res.status(400).send("Could not Request");
+  })
 
 })
+
+
 
 //------------------------------------------------------------------------------
 //GET - users
 app.get('/users',(req , res)=>{
-	
+
 	User.find().then((users)=>{
 		res.status(200).send({users})
 
@@ -115,47 +120,36 @@ app.get('/users',(req , res)=>{
 
 })
 
+
+
 //------------------------------------------------------------------------------
 //GET - users with specific object ID
 app.get('/users/:id',(req , res)=>{
-	
+
 var id = req.params.id;
-if(ObjectID.isValid(id))
+//  validation of Id by ObjectID.isValid()
+if(!ObjectID.isValid(id))
 {
-	User.findById(id).then((user)=>{
-		if(!user)
-			{
-				return res.status(404).send("Sorry!!! No such user");
-			}
-			res.status(200).send(`User:  ${user}`);
+  return res.status.send("Id is Invalid")
 
-
-	},(e)=>{
-		res.status(400).send("Sorry no user found");
-
-	})
 }
-else
-{
-	res.status(404).send("Invalid Id");
-}
+
+///if Its is Valid then Using findById() method to find in database
+User.findById(id).then((user)=>{
+  var ans = user ? res.status(200).send({user}) : res.status(404).send("Not found User");
+  return ans;
+
+
+},(e)=>{
+  res.status(400).send("Sorry No user found");
+
+})
+
 })
 
 
 
 app.listen(port , ()=>{
 
-	console.log(`Running of port ${port}`);
+	console.log(`Running on port : ${PORT}`);
 })
-
-
-
-
-
-
-
-
-
-
-
-
