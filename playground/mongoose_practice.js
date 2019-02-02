@@ -114,7 +114,8 @@ app.get('/todos/:id',(req,res)=>{
 
   Todo.findById(id).then((todo)=>{
 
-    var ans = todo? res.send(todo) : res.status(404).send({});
+    var ans = todo? res.send(todo) :res.status(404).send({});
+     return ans;
     // var ans = todo? todo: {};
     // res.send(ans);
 
