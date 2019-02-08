@@ -26,3 +26,5 @@ Inside the server directory
 ```
 node server
 ```
+## SNAPSHOT
+![Todo API](/TODO_API.png)
