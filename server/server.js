@@ -1,5 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+const expressHbs = require('express-handlebars');
+const path = require('path');
 var _ = require('lodash');
 
 var {mongoose} = require('./db/mongoose');
@@ -11,8 +13,10 @@ var app = express();
 
 var PORT = process.env.PORT || 3000;
 
+app.use(express.static( path.join(__dirname ,'/..','/public')));
 app.use(bodyParser.json())
-
+app.engine('.hbs',expressHbs({defaultLayout:'layout' , extname :'.hbs'}));
+app.set('view engine','.hbs');
 //------------------------------------------------------------------------------
 //POST - Todos
 app.post('/todos',(req , res)=>{
@@ -61,7 +65,7 @@ newUser.save().then((doc)=>{
 app.get('/',(req,res)=>{
 	if(req)
 	{
-		res.status(200).send('<h1> Welcome to my Todo App -Thanks for visiting </h1>')
+		res.render('index');
 	}
 
 })
@@ -155,7 +159,7 @@ app.patch('/todos/:id',(req,res)=>
     return res.status(400).send("Oops Some Error");
   })
 
-  
+
 })
 
 
