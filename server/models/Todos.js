@@ -16,6 +16,12 @@ var Todo = mongoose.model('Todo',{
 	{
       type : Number,
       default : null
+	},
+	deadline:
+	{
+		default: null,
+		type: date,
+		
 	}
 })
 
