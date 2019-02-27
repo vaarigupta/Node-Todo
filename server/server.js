@@ -19,13 +19,16 @@ app.engine('.hbs',expressHbs({defaultLayout:'layout' , extname :'.hbs'}));
 app.set('view engine','.hbs');
 //------------------------------------------------------------------------------
 //POST - Todos
-app.post('/todos',(req , res)=>{
 
+
+app.post('/todos',(req , res)=>{
+ var newdate = new Date();
      var body = req.body;
 	var newTodo = new Todo({
 		text : body.text,
 		completed: body.completed,
-		completedAt : body.completedAt
+		deadline: body.deadline,
+		completedAt : newdate,
 	})
 
 	newTodo.save().then((doc)=>{
