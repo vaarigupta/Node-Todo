@@ -35,13 +35,11 @@ app.get('/',(req,res)=>{
 
 
 app.post('/todos',(req , res)=>{
- var newdate = new Date();
      var body = req.body;
 	var newTodo = new Todo({
 		text : body.text,
 		completed: body.completed,
-		deadline: body.deadline,
-		completedAt : newdate,
+		completedAt : body.completedAt
 	})
 
 	newTodo.save().then((doc)=>{

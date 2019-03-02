@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 var Todo = mongoose.model('Todo',{
 	text:{
-      type: String, 
+      type: String,
       required : true,
       minlength : 1,
       trim : true
@@ -16,12 +16,6 @@ var Todo = mongoose.model('Todo',{
 	{
       type : Number,
       default : null
-	},
-	deadline:
-	{
-		default: null,
-		type: date,
-		
 	}
 })
 
