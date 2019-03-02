@@ -17,6 +17,19 @@ app.use(express.static( path.join(__dirname ,'/..','/public')));
 app.use(bodyParser.json())
 app.engine('.hbs',expressHbs({defaultLayout:'layout' , extname :'.hbs'}));
 app.set('view engine','.hbs');
+
+
+
+//----------------------------------------------------------------------------------------
+//GET - root
+
+app.get('/',(req,res)=>{
+	if(req)
+	{
+		res.render('index');
+	}
+
+})
 //------------------------------------------------------------------------------
 //POST - Todos
 app.post('/todos',(req , res)=>{
@@ -59,16 +72,6 @@ newUser.save().then((doc)=>{
 
 
 
-//----------------------------------------------------------------------------------------
-//GET - root
-
-app.get('/',(req,res)=>{
-	if(req)
-	{
-		res.render('index');
-	}
-
-})
 
 
 
