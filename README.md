@@ -1,5 +1,5 @@
 # Todo - API
-As everyone requires an app which provides a functionality to create TODO'S which tells a person at what a person has to perform a work and maintains a record
+It facilitates user by creating Todos without any chaos and maintains the record of task to be performed and completeness of the task. 
 In this application , I have implemented such functionality of CRUD operations where a user can
 ```
 Create
