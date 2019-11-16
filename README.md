@@ -1,5 +1,5 @@
 # Todo - API
-![Todo Home Page 1 ](/todo_home.JPG)
+![Todo Home Page 1 ](/readme_images/todo_home.JPG)
 It facilitates user by creating Todos without any chaos and maintains the record of task to be performed and completeness of the task. 
 In this application , I have implemented such functionality of CRUD operations where a user can
 ```
@@ -9,7 +9,7 @@ Update
 Delete
 ```
 It is an API where JSON is Submitted to the application and can be fetched , updated and deletd via POSTMAN .
-![Todo API](/todo_api.JPG)
+![Todo API](/readme_images/todo_api.JPG)
 Check Out deployed [Link](https://whispering-sierra-42913.herokuapp.com/todos)
 ## Technology used
 ```
