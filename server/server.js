@@ -135,7 +135,7 @@ app.delete('/todos/:id',(req,res)=>{
 app.patch('/todos/:id',(req,res)=>
 {
   var id = req.params.id;
-  // The body from the request that we want to updates
+  // The body from the request that we want to update
   var body = _.pick(req.body, ['text' , 'completed']);
   if(!ObjectID.isValid(id))
   {
