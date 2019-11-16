@@ -9,7 +9,7 @@ Update
 Delete
 ```
 It is an API where JSON is Submitted to the application and can be fetched , updated and deletd via POSTMAN .
-![Todo API](/TODO_API.png)
+![Todo API](/todo_api.JPG)
 Check Out deployed [Link](https://whispering-sierra-42913.herokuapp.com/todos)
 ## Technology used
 ```
