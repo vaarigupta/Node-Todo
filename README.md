@@ -27,4 +27,9 @@ Inside the server directory
 node server
 ```
 ## SNAPSHOT
+![Todo Home Page 1 ](/todo_home.JPG)
+![Todo Home Page 2 ](/todo_home1.JPG)
+![Todo Home Page 3 ](/todo_home2.JPG)
 ![Todo API](/TODO_API.png)
+
+
