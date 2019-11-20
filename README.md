@@ -1,5 +1,6 @@
 # Todo - API
 ![Todo Home Page 1 ](/readme_images/todo_home.JPG)
+You can view project [here] (https://whispering-sierra-42913.herokuapp.com/todos)
 It facilitates user by creating Todos without any chaos and maintains the record of task to be performed and completeness of the task. 
 In this application , I have implemented such functionality of CRUD operations where a user can
 ```
